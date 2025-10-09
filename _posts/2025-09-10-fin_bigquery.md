@@ -14,16 +14,17 @@ For this project, I will work through the IDE of RStudio, given that it is
 one of the easiest and fastest ways to generate a Markdown document with
 snippets of Python. I first installed Python through the reticulate
 package and Conda repositories, which will allow me to run Python commands
-within the R session. The process is simple, first installing the
-reticulate with dependencies, then running the install_miniconda()
+within the R session. The process is simple: first install the
+reticulate with dependencies, then run the install_miniconda()
 Command for installing Python. The third step is to accept the
-conditions of installing Python on the local machine. And, finally, creating a Python environment that will be called (binded) when an
+conditions of installing Python on the local machine. And, finally, 
+creating a Python environment that will be called (binded) when an
 R session starts (this happens when I couple the Markdown document).
 
-(If you have already installed Python or you prefer working with
+(If you have already installed Python, or you prefer working with
 Jupiter, skip to part 2).
 
-``` r
+```r
 # Install reticulate
 install.packages("reticulate", dependencies = T)
 
@@ -58,7 +59,7 @@ Recall that this snippet will be loaded to bind R with Python within
 Rstudio.
 
 
-``` r
+```r
 # to bind the env of python to the Rsession is best to restart ctrl + alt + F10
 reticulate::use_condaenv("r-reticulate", required = TRUE)
 
@@ -77,18 +78,18 @@ and run ML models suitable for prediction and forecasting.
 
 The dataset that I will use is public and accessible through Google
 BigQuery, called eCommerce, is rich in tables that contain
-inventories, kpis and other financial data typically needed for decision-making
+inventories, KPIs and other financial data typically needed for decision-making
 making.
 
 ### 2.1) Install Google Cloud CLI
 
 The first step is to install the Google Cloud CLI, I am installing it with
 Blunted Python and Beta Commands, and skipping the Cloud Tools for
-PowerShell that I do not need at the moment.
+PowerShell that I do not currently need.
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_1.png?raw=true)<!-- -->
 
-After installation, the Google Shell will open and it will require
+After installation, the Google Shell will open, and it will require
 authentication with a Google Account.
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_2.png?raw=true)<!-- -->
@@ -104,12 +105,12 @@ Make sure the authentication is correct:
 ### 2.2) Creating a Project in Gcloud Power-Shell
 
 After accepting the terms, we can go back to the PowerShell and
-create a new project (Option 3), give a name to the project, I am
+to create a new project (Option 3), give a name to the project, and I am
 calling my project `finance-bigq-demo-2025-mgs`. If there is a problem,
-For instance, a non-compatible project ID name, you can run, to create
+For instance, a non-compatible project ID name, you can run to create
 the project.
 
-### 2.3) Authentification and Enabling Big Data Services
+### 2.3) Authentication and Enabling Big Data Services
 
 After the project is created, they can proceed to authenticate the user
 name in the Gcloud, this is done one time and credentials are stored
@@ -156,7 +157,7 @@ This query connects to the data thelook_ecommerce schema and retrieves
 all tables and column names with their variable type. For later use, I am
 saving this as a CSV to study the variables for further analysis.
 
-``` python
+```python
 # Load libraries
 import pandas as pd # to manipulate data
 import pandas_gbq as pgbq # to connect to the Gcloud
@@ -191,7 +192,7 @@ else:
 
 ## 5) General Approach for Data Manipulation (ETL)
 
-My approach to handling Big Data is taking advantage of the process of
+My approach to handling Big Data is to take advantage of the process of
 filtering, aggregation, and joining that are performed efficiently in
 The GCloud with SQL/Google BigQuery. Once the data set is ready, save it
 locally as a data mart that has been opened for further transformation
@@ -224,10 +225,10 @@ table, by looking it up in the products table:
 
 **Tables & columns used**
 
-- Facts: `order_items` → `oi.sale_price`, `oi.delivered_at`,
+- Facts: `order_items` -> `oi.sale_price`, `oi.delivered_at`,
   `oi.created_at`, `oi.returned_at`
 
-- Cost: `inventory_items` → `ii.cost` (preferred), `products` → `p.cost`
+- Cost: `inventory_items` `ii.cost` (preferred), `products` -> `p.cost`
   (fallback)
 
 #### Stage 2
@@ -253,7 +254,7 @@ operations with fallbacks for `NULL` values via `COALESCE`. Here, it is
 worth noting that I use a `FULL OUTER JOIN` to include all months in the
 P&L data, even if they contain only revenue or only returns.
 
-``` python
+```python
 # Import os to check if the file exist otherwise ETL the Data
 import os
 
@@ -352,7 +353,7 @@ else:
     ## 
     ## [5 rows x 7 columns]
 
-``` python
+```python
     
     
 # Some sanity checks
@@ -379,36 +380,36 @@ print(df.tail(12)[["month","revenue_gross","returns","revenue_net","cogs","cogs_
     ## 
     ## [12 rows x 9 columns]
 
-``` python
+```python
 print("Overall GM% (net):", (df["gross_profit"].sum() / df["revenue_net"].sum()))
 ```
 
     ## Overall GM% (net): 0.5190164068500782
 
-``` python
+```python
 print("Median monthly GM%:", df["gm_pct"].median())
 ```
 
     ## Median monthly GM%: 0.5190465748341138
 
-``` python
+```python
 print("Median monthly COGS%:", df["cogs_pct"].median())
 ```
 
     ## Median monthly COGS%: 0.481191899780154
 
-``` python
+```python
 test = (df_pnl["revenue_net"] - df_pnl["gross_profit"]) - (df_pnl["cogs"] - df_pnl["cogs_returns"])
 test.abs().max()
 ```
 
     ## np.float64(1.4551915228366852e-11)
 
-### 6.2) Visualize the Profit & Loss (P&L) Statement
+## 7) Visualize the Profit & Loss (P&L) Statement
 
 For a nice visualisation of the P&L statement, I am using the `plotly` library that transforms our P&L time series into dynamic plots. They are great for dashboarding because they are interactive, you can zoom in, zoom out, save PNG directly, and they render information if you hover the mouse over the plot.
 
-``` python
+```python
 import plotly.express as px
 df_pnl["month"] = pd.to_datetime(df_pnl["month"])
 long = df_pnl.melt(
