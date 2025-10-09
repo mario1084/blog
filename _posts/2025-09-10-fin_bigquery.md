@@ -107,8 +107,8 @@ Make sure the authentication is correct:
 After accepting the terms, we can go back to the PowerShell and
 to create a new project (Option 3), give a name to the project, and I am
 calling my project `finance-bigq-demo-2025-mgs`. If there is a problem,
-For instance, a non-compatible project ID name, you can run to create
-the project.
+for instance, a non-compatible project ID name, you can run `gcloud projects create finance-bigq-demo-2025-mgs` 
+to create the project.
 
 ### 2.3) Authentication and Enabling Big Data Services
 
