@@ -10,18 +10,17 @@ date: "2025-09-10"
 
 ## 1) Installing Python in RStudio
 
-For this project I will work through the IDE of RStudio given that it is
-one of the easieast and fastests ways generate a Markdown document with
-snippets of Python. I first installed Python, through the reticulate
-package and Conda repositories that will allow to run Python commands
-within the R session. The process is simple, first intalling the
+For this project, I will work through the IDE of RStudio, given that it is
+one of the easiest and fastest ways to generate a Markdown document with
+snippets of Python. I first installed Python through the reticulate
+package and Conda repositories, which will allow me to run Python commands
+within the R session. The process is simple, first installing the
 reticulate with dependencies, then running the install_miniconda()
-command for installing Python. The third step is to accept the
-conditions of installing Python in the local machine. And, finally
-creating a Python enviroment that will be called (binded) when an
-Rsession starts (this happens when I couple the Markdown document).
+Command for installing Python. The third step is to accept the
+conditions of installing Python on the local machine. And, finally, creating a Python environment that will be called (binded) when an
+R session starts (this happens when I couple the Markdown document).
 
-(If you have already Python installed or you prefer working with
+(If you have already installed Python or you prefer working with
 Jupiter, skip to part 2).
 
 ``` r
@@ -53,10 +52,11 @@ reticulate::conda_install("r-reticulate",
 )
 ```
 
-After the installation is done, is best to start a clean new Rsession
-(Ctrl + Alt + F10), and load the environment of Python in the session.
+After the installation is done, it's best to start a clean new Rsession
+(Ctrl + Alt + F10), and load Python in the session.
 Recall that this snippet will be loaded to bind R with Python within
 Rstudio.
+
 
 ``` r
 # to bind the env of python to the Rsession is best to restart ctrl + alt + F10
@@ -65,26 +65,26 @@ reticulate::use_condaenv("r-reticulate", required = TRUE)
 reticulate::py_config()
 ```
 
-## 2) Setting Up the Cloud Enviroment
+## 2) Setting Up the Cloud Environment
 
-For this project I will showcase the use of Google Cloud CLI, that
-provide a powerful way to interact with Google BigQuery and Python. The
+For this project, I will showcase the use of Google Cloud CLI, which
+provides a powerful way to interact with Google BigQuery and Python. The
 Google BigQuery has the advantage of using the Cloud Infrastructure from
-Google that can run regula SQL and BigQuery if needed. Google Cloud CLI
-has also the advantage of monitoring and managing query jobs that run
+Google can run regular SQL and BigQuery if needed. Google Cloud CLI
+also has the advantage of monitoring and managing query jobs that run
 regularly. Furthermore, the Google BigQuery can directly train, evaluate
-and run ML models suitable for prediction and forecast.
+and run ML models suitable for prediction and forecasting.
 
 The dataset that I will use is public and accessible through Google
-BigQuery, called eCommerce, that is rich in tables that contain
-inventories, kpis and other financial data typically needed for decision
+BigQuery, called eCommerce, is rich in tables that contain
+inventories, kpis and other financial data typically needed for decision-making
 making.
 
 ### 2.1) Install Google Cloud CLI
 
-The first step is install the Google Cloud CLI, I am installing it with
+The first step is to install the Google Cloud CLI, I am installing it with
 Blunted Python and Beta Commands, and skipping the Cloud Tools for
-Power-shell that I do not need at the movement.
+PowerShell that I do not need at the moment.
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_1.png?raw=true)<!-- -->
 
@@ -97,38 +97,38 @@ After selecting Yes
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_3.png?raw=true)<!-- -->
 
-Make sure the authentification is correct:
+Make sure the authentication is correct:
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_4.png?raw=true)<!-- -->
 
 ### 2.2) Creating a Project in Gcloud Power-Shell
 
-After accepting the terms, we can go back to to the Power-Shell and
+After accepting the terms, we can go back to the PowerShell and
 create a new project (Option 3), give a name to the project, I am
-calling my project `finance-bigq-demo-2025-mgs`. I there is a problem,
-for instance, non-compatible project id name, you can run , to create
+calling my project `finance-bigq-demo-2025-mgs`. If there is a problem,
+For instance, a non-compatible project ID name, you can run, to create
 the project.
 
 ### 2.3) Authentification and Enabling Big Data Services
 
-After the project it is create, the can proceed to authenticate the user
+After the project is created, they can proceed to authenticate the user
 name in the Gcloud, this is done one time and credentials are stored
-locall y- `gcloud auth application-default login`. After running this
+locally- `gcloud auth application-default login`. After running this
 command, your default browser will open, and just sign in with your
-Google Credentials. Then a final step is enabling the services we will
+Google Credentials. Then, a final step is enabling the services we will
 use for this project, namely, `finance-bigq-demo-2025-mgs` and
 `finance-bigq-demo-2025-mgs` with this command:
 `finance-bigq-demo-2025-mgs`
 
 ### 2.4) Sanity Checks
 
-Before continue it is useful to perform some sanity check commands to
+Before continuing, it is useful to perform some sanity check commands to
 verify everything is working in good order. I recommend
 `gcloud config list`, for showing the active project, followed by
 `gcloud services list --enabled` that verifies that the BigQuery API
-services are enabled. An additional step is verify that your account is
+services are enabled. An additional step is to verify that your account is
 set up as the active account, which you can do with `gcloud auth list`.
-After running this last command you should be able to see your account
+After running this last command, you should be able to see your account
 marked with `*`.
 
 ![](https://github.com/Wario84/blog/raw/main/assets/imgs/google_cli_5.png?raw=true)<!-- -->
@@ -136,9 +136,9 @@ marked with `*`.
 ## 3) The `thelook_ecommerce` Dataset
 
 The GCloud services come with public datasets designed to test Google
-Service Capabilities processing Big Data. This particular data set have
-variables relevant for the context of finance and eCommerce. The data
-set has these following tables according to Google:
+Service Capabilities for processing Big Data. This particular data set has
+variables relevant to the context of finance and e-commerce. The data
+set has the following tables according to Google:
 
 | Table Name | Number of Rows | Number of Columns | Description |
 |----|----|----|----|
@@ -150,11 +150,11 @@ set has these following tables according to Google:
 | products | 28,000+ | 10 | Product catalog with category, brand, and cost. |
 | users | 100,000 | 12 | User demographics and traffic source. |
 
-## 4) Conecting Gcloud with Python
+## 4) Connecting Gcloud with Python
 
 This query connects to the data thelook_ecommerce schema and retrieves
-all tables and column names with their variable type. For later use I am
-saving this as CSV to sudy the variables for further analysis.
+all tables and column names with their variable type. For later use, I am
+saving this as a CSV to study the variables for further analysis.
 
 ``` python
 # Load libraries
@@ -189,19 +189,19 @@ else:
     ## 3  distribution_centers                 longitude    FLOAT64
     ## 4  distribution_centers                      name     STRING
 
-## 5) General Apporach for Data Manipulation (ETL)
+## 5) General Approach for Data Manipulation (ETL)
 
-My approach to handle Big Data is taking advantage of the process of
-filtering, aggregation and and joining that are performed efficiently in
-the GCloud with SQL/Google BigQuery. Once the data set is ready, save it
-locally as a data mart that have be opened for further transformation
+My approach to handling Big Data is taking advantage of the process of
+filtering, aggregation, and joining that are performed efficiently in
+The GCloud with SQL/Google BigQuery. Once the data set is ready, save it
+locally as a data mart that has been opened for further transformation
 and analysis using Python.
 
 ### 6.1 Data Filtering, Aggregation and Joining Strategy
 
-For data consistency I use fallbacks when `NULL` values are detected in
+For data consistency, I use fallbacks when `NULL` values are detected in
 key columns. For instance, when filtering the data by timestamp, I first
-check when the product was delivered, and if that is `NULL`, I fallback
+Check when the product was delivered, and if that is `NULL`, I fall back
 to the order creation timestamp:  
 `DATE(TIMESTAMP_TRUNC(COALESCE(oi.delivered_at, oi.created_at), MONTH))`.
 
@@ -248,8 +248,8 @@ aggregations are straightforward:
 
 #### Stage 4
 
-In the last stage I leverage BigQuery to perform fast arithmetic
-operations with fallbacks for `NULL` values via `COALESCE`. Here it is
+In the last stage, I leverage BigQuery to perform fast arithmetic
+operations with fallbacks for `NULL` values via `COALESCE`. Here, it is
 worth noting that I use a `FULL OUTER JOIN` to include all months in the
 P&L data, even if they contain only revenue or only returns.
 
@@ -406,7 +406,7 @@ test.abs().max()
 
 ### 6.2) Visualize the Profit & Loss (P&L) Statement
 
-For nice
+For a nice visualisation of the P&L statement, I am using the `plotly` library that transforms our P&L time series into dynamic plots. They are great for dashboarding because they are interactive, you can zoom in, zoom out, save PNG directly, and they render information if you hover the mouse over the plot.
 
 ``` python
 import plotly.express as px
