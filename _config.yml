@@ -24,7 +24,7 @@ email: mglezsauri@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   "Mario GS: Data Science Blog."
 baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "https://wario84.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://mario1084.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: Intermind
 github_username:  wario84
 #feed: true
