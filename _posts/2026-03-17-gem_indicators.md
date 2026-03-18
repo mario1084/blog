@@ -839,24 +839,6 @@ adults not asked education questions). Treating these as “non-complete”
 (internal method) vs. “non-response” (harmonized method) shifts the
 benchmark by ~6 pp.
 
-I cannot confirm WIDE employs this exact approach without access to
-their computation documentation. However, the reconciliation
-demonstrates that Honduras *can* achieve published benchmarks through
-justifiable, auditable choices about how to define the completion
-reference population. This finding elevates the interpretation of the
-indicator drift from “measurement failure” to “legitimate methodological
-difference,” with important implications for how I communicate Honduras
-results to stakeholders.
-
-**Overall Pattern:** The completion deviations do not signal
-harmonization failure; they reveal the structural constraints of working
-with survey data designed for domestic policy, not international
-comparison. Attendance—which relies on direct binary questions with
-minimal ambiguity—aligns perfectly. Completion—which requires mapping
-multi-year national cycles into ISCED categories—remains subject to
-cycle-specific grade thresholds and cohort definitions that shape the
-benchmark outcome in systematic ways.
-
 ## Conclusion
 
 The overall benchmark alignment validates the two-layer [harmonization
